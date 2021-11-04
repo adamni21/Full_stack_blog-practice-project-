@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { StyledHeader, StyledNav, StyledTitle } from "./Header.styles";
+import { StyledHeader, StyledNav, StyledBlogTitle } from "./Header.styles";
 export {}
 
 interface Props {
@@ -10,7 +10,7 @@ const Header: FC<Props> = props => {
     
     return (
         <StyledHeader>
-            <StyledTitle>{props.title || "My Blog"}</StyledTitle>
+            <StyledBlogTitle>{props.title || "My Blog"}</StyledBlogTitle>
             <StyledNav>
                 <p>HOME</p>
                 <p>ABOUT US</p>
