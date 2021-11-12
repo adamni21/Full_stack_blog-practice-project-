@@ -15,7 +15,7 @@ export const StyledHeader = styled.header`
     align-items: center;
 `;
 
-export const StyledBlogTitle = styled.h1`
+export const StyledBlogTitle = styled.h1 `
     color: ${props => props.color || "#333"};
     margin: 0;
 `;
@@ -23,11 +23,30 @@ export const StyledBlogTitle = styled.h1`
 export const StyledNav = styled.nav`
     display: flex;
     justify-content: space-evenly;
-    background-color: #0001;
-    padding: 1rem;
+    background-color: #1111;
+    padding: .8rem 1rem;
     border-radius: .5rem;
 
-    & > * {
-        margin: 0 .8rem;
+    & > a {
+        color: #666;
+        padding: .5rem .8rem;
+        text-decoration: none;
     }
+    & > a:hover {
+        color: #aaa;
+    }
+    & > a:active {
+        color: #999;
+    }
+
+    & .isActive {
+        font-weight: bold;
+        color: #6a6a6a;
+        border-bottom: solid .15rem #999;
+    }
+    & > a.isActive:hover {
+        color: #777;
+    }
+
+
 `;

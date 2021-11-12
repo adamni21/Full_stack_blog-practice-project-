@@ -1,9 +1,10 @@
 import { FC } from "react";
-import { StyledEntry, StyledEntryTitle, StyledPreview, } from "./Entry.styles";
+import { StyledEntry, StyledEntryTitle, StyledPreview, } from "./EntryPreview.styles";
 
 interface Props {
     title: string,
     content: string,
+    id: string
 };
 
 const Entry: FC<Props> = props => {
@@ -16,7 +17,7 @@ const Entry: FC<Props> = props => {
     return (
         <StyledEntry>
             <StyledEntryTitle>{props.title}</StyledEntryTitle>
-            <StyledPreview>{contentPreview}... <a href="_">read more</a></StyledPreview>
+            <StyledPreview>{contentPreview}... <a href={`entry_${props.id}`}>read more</a></StyledPreview>
         </StyledEntry>
     )
 }

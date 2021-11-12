@@ -7,12 +7,13 @@ export const StyledIntroTitle = styled.h2`
     color: #233;
 `;
 
-export const StyledIntroText = styled.p`
+export const StyledIntroText = styled.a`
     margin: .5rem 0 0;
     color: #445;
 `;
 
 export const StyledInro = styled.div`
     margin: 1rem 0 2rem;
+    max-width: 60rem;
     text-align: left;
 `;

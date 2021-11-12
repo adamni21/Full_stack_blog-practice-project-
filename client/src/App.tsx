@@ -1,6 +1,11 @@
 import './App.css';
+import { Navigate, Routes } from 'react-router';
+import { BrowserRouter as Router, Route,  } from 'react-router-dom';
 import Header from './Components/layout/Header';
 import Home from './Components/pages/Homepage/Home';
+import About from './Components/pages/About/About';
+import Contact from './Components/pages/Contact/Contact';
+import PageNotFound from './Components/pages/404/PageNotFound';
 
 export interface blog_entry {
   title: string,
@@ -35,10 +40,18 @@ const DUMMY_ENTRIES: blog_entry[] = [
 
 function App() {
   return (
-    <div className="App">
-      <Header/>
-      <Home blogEntries={DUMMY_ENTRIES} />
-    </div>
+    <Router>
+      <div className="App">
+        <Header/>
+        <Routes>
+          <Route path="/home" element={ <Home blogEntries={DUMMY_ENTRIES}/> }/>
+          <Route path="/about" element={ <About/> }/>
+          <Route path="/contact" element={ <Contact /> }/>
+          <Route path="/" element={ <Navigate to="/home"/> }/>
+          <Route path="/*" element={ <PageNotFound/> }/>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

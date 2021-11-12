@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { blog_entry } from "src/App";
-import EntryList from "./EntryList";
+import EntryList from "./EntryPreviewList";
 import { StyledMain } from "./Home.styles";
 import Introduction from "./Introduction";
 
