@@ -1,27 +1,33 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 
-import { Entry } from "../../entity/Entry";
+import { Article } from "../entity/Article";
 
 @Resolver()
-export class AddEntryResolver {
+export class ArticleResolver {
+
   @Query(() => String)
   async helloWorld() {
     return "Hello World!";
   }
+  
+  @Query(returns => [Article])
+  articles(): Promise<Article[]> {
+    return Article.find();
+  }
 
-  @Mutation(() => Entry)
-  async addEntry(
+  @Mutation(() => Article)
+  async addArticle(
     @Arg("title") title: string,
     @Arg("content") content: string,
     @Arg("author_name") author_name: string
-  ): Promise<Entry> {
+  ): Promise<Article> {
 
-    const entry = await Entry.create({
+    const article = await Article.create({
       title,
       content,
       author_name,
     }).save();
 
-    return entry;
+    return article;
   }
 }
