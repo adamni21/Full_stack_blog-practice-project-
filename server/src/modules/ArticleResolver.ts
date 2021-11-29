@@ -1,3 +1,4 @@
+import { ApolloError } from "apollo-server-errors";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 
 import { Article } from "../entity/Article";
@@ -5,12 +6,18 @@ import { Article } from "../entity/Article";
 @Resolver()
 export class ArticleResolver {
 
-  @Query(() => String)
-  async helloWorld() {
-    return "Hello World!";
+  @Query(() => Article)
+  async article(
+    @Arg("articleId") articleId: string
+  ): Promise<Article | Error> {
+    const article = await Article.findOne(articleId)
+
+    if(article) return article;
+    else return new ApolloError(`Article with id: "${articleId}" does not exist`, "404")
+
   }
   
-  @Query(returns => [Article])
+  @Query(() => [Article])
   articles(): Promise<Article[]> {
     return Article.find();
   }
