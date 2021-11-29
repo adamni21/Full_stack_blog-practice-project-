@@ -12,10 +12,24 @@ export class Article extends BaseEntity {
     @Field()
     @Column()
     title: string;
+
     
     @Field()
     @Column()
     content: string;
+
+    @Field()
+    preview(): string {
+        let preview = this.content.slice(0, 100);
+        
+        //cuts last character if it's a dash 
+        if (preview.slice(-1) === " ") preview = preview.slice(-1)
+        //cuts last character if it's a dot (no else if! to cut both: ". " and ".")
+        if (preview.slice(-1) === ".") preview = preview.slice(0, -1)
+        
+        return preview;
+
+    }
 
     @Field()
     @Column()
