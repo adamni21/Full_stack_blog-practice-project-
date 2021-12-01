@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { StyledContent, StyledMain, StyledTitle } from "./Contact.styles";
 
 

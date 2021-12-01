@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { StyledMain } from "../Homepage/Home.styles";
-import { StyledContent, StyledTitle } from "./About.styles";
+
+import { StyledContent, StyledTitle, StyledMain, StyledAbout } from "./About.styles";
 
 const content = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac efficitur nulla. 
   Proin risus nunc, eleifend in est id, maximus mollis elit. Cras eget facilisis sem, eget pharetra erat. 
@@ -27,8 +27,10 @@ const About: FC = () => {
 
   return (
     <StyledMain>
-      <StyledTitle>About us</StyledTitle>
-      <StyledContent>{content}</StyledContent>
+      <StyledAbout>
+        <StyledTitle>About us</StyledTitle>
+        <StyledContent>{content}</StyledContent>
+      </StyledAbout>
     </StyledMain>
   );
 };

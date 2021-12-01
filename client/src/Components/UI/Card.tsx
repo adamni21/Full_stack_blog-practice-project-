@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { StyledCard } from "./Card.styles";
 
 interface Props {};

@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { StyledInro, StyledIntroText, StyledIntroTitle } from "./Introduction.styles";
+
+import { StyledIntro, StyledIntroContent, StyledIntroTitle } from "./Introduction.styles";
 
 const content = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
 
@@ -11,10 +12,10 @@ Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lo
 const Introduction: FC = () => {
     
     return (
-        <StyledInro>
+        <StyledIntro>
             <StyledIntroTitle>Home</StyledIntroTitle>
-            <StyledIntroText>{content}</StyledIntroText>
-        </StyledInro>
+            <StyledIntroContent>{content}</StyledIntroContent>
+        </StyledIntro>
     )
 }
 

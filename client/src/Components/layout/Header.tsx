@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
+
 import { StyledHeader, StyledNav, StyledBlogTitle } from "./Header.styles";
-export {}
+import { NavLink } from "react-router-dom";
 
 interface Props {
     title?: string,

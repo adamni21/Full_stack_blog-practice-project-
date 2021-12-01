@@ -4,12 +4,13 @@
     "baseUrl": ".",
     "outDir": "build/dist",
     "module": "esnext",
-    "target": "es2017",
+    "target": "es2021",
     "lib": [
       "es6",
       "dom",
       "esnext.asynciterable",
-      "es2017"
+      "es2017",
+      "ES2021.String"
     ],
     "sourceMap": true,
     "allowJs": true,
