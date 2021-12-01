@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { blog_entry } from "src/App";
-import EntryList from "./EntryPreviewList";
+import EntryList from "./ArticlePreviewList";
 import { StyledMain } from "./Home.styles";
 import Introduction from "./Introduction";
 
 interface Props {
-    blogEntries: blog_entry[];
+    blogArticles: blog_entry[];
 };
 
 const Home: FC<Props> = props => {
@@ -13,7 +13,7 @@ const Home: FC<Props> = props => {
     return (
         <StyledMain as="main">
             <Introduction />
-            <EntryList entries={props.blogEntries} />
+            <EntryList articles={props.blogArticles} />
         </StyledMain>
     )
 }

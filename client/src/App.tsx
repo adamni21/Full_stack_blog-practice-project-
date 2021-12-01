@@ -1,6 +1,6 @@
 import './App.css';
 import { Navigate, Routes } from 'react-router';
-import { BrowserRouter as Router, Route,  } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 import Header from './Components/layout/Header';
@@ -15,10 +15,12 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+
+
 export interface blog_entry {
+  id: string,
   title: string,
   content: string,
-  id: string,
 }
 
 
@@ -47,13 +49,14 @@ const DUMMY_ENTRIES: blog_entry[] = [
 ];
 
 function App() {
+
   return (
     <Router>
       <div className="App">
         <Header/>
         <ApolloProvider client={client}>
           <Routes>
-            <Route path="/home" element={ <Home blogEntries={DUMMY_ENTRIES}/> }/>
+            <Route path="/home" element={ <Home blogArticles={DUMMY_ENTRIES}/> }/>
             <Route path="/about" element={ <About/> }/>
             <Route path="/contact" element={ <Contact /> }/>
             <Route path="/" element={ <Navigate to="/home"/> }/>

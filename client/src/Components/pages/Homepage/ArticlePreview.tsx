@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { StyledEntry, StyledEntryTitle, StyledPreview, } from "./EntryPreview.styles";
+import { StyledArticle, StyledArticleTitle, StyledPreview, } from "./ArticlePreview.styles";
 
 interface Props {
     title: string,
@@ -7,7 +7,7 @@ interface Props {
     id: string
 };
 
-const Entry: FC<Props> = props => {
+const Article: FC<Props> = props => {
     
     let contentPreview = props.content.slice(0, 100);
     
@@ -15,11 +15,11 @@ const Entry: FC<Props> = props => {
     if (contentPreview.slice(-1) === ".") contentPreview = contentPreview.slice(0, -1)
 
     return (
-        <StyledEntry>
-            <StyledEntryTitle>{props.title}</StyledEntryTitle>
+        <StyledArticle>
+            <StyledArticleTitle>{props.title}</StyledArticleTitle>
             <StyledPreview>{contentPreview}... <a href={`entry_${props.id}`}>read more</a></StyledPreview>
-        </StyledEntry>
+        </StyledArticle>
     )
 }
 
-export default Entry;
+export default Article;

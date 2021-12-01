@@ -8,7 +8,7 @@ interface Props {
 };
 
 const Header: FC<Props> = props => {
-    console.log("render");
+    
     return (
         <StyledHeader>
             <StyledBlogTitle>{props.title || "My Blog"}</StyledBlogTitle>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const StyledEntryTitle = styled.h2`
+export const StyledArticleTitle = styled.h2`
     text-align: left;
     font-size: 1.8rem;
     color: #233;
@@ -14,6 +14,6 @@ export const StyledPreview = styled.p`
     color: #445;
 `;
 
-export const StyledEntry = styled.div`
+export const StyledArticle = styled.div`
     margin: 1.2rem 0;
 `;

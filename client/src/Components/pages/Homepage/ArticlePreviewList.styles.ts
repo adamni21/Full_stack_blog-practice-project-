@@ -2,6 +2,6 @@ import styled from "styled-components";
 
 
 
-export const StyledEntryList = styled.div`
+export const StyledArticleList = styled.div`
     margin-top: 2.5rem;
 `;
