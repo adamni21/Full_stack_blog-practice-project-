@@ -1,21 +1,23 @@
 import { FC } from "react";
 
 import { StyledHeader, StyledNav, StyledBlogTitle } from "./Header.styles";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 interface Props {
     title?: string,
 };
 
 const Header: FC<Props> = props => {
-    
+    const navigate = useNavigate();
+    const navigateHome = () => navigate("/home");
+
     return (
         <StyledHeader>
-            <StyledBlogTitle>{props.title || "My Blog"}</StyledBlogTitle>
+            <StyledBlogTitle onClick={navigateHome}>{props.title || "My Blog"}</StyledBlogTitle>
             <StyledNav>
                 <NavLink to="/home" className={navData => `${navData.isActive ? "isActive" : "notActive"}`}>HOME</NavLink>
-                <NavLink to="/about" className={navData => `${navData.isActive ? "isActive" : "notActive"}`}>ABOUT US</NavLink>
-                <NavLink to="/404" className={navData => `${navData.isActive ? "isActive" : "notActive"} `}>CONTACT US</NavLink>
+                <NavLink to="/about" className={navData => `${navData.isActive ? "isActive" : "notActive"}`}>ABOUT</NavLink>
+                <NavLink to="/404" className={navData => `${navData.isActive ? "isActive" : "notActive"} `}>CONTACTq</NavLink>
             </StyledNav>
         </StyledHeader>
     )

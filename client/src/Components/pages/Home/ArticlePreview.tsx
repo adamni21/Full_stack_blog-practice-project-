@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { StyledArticle, StyledTitle, StyledPreview, } from "./ArticlePreview.styles";
+import { StyledArticle, StyledTitle, StyledPreview, StyledLink, } from "./ArticlePreview.styles";
 
 interface Props {
     title: string,
@@ -9,12 +9,13 @@ interface Props {
 };
 
 const ArticlePreview: FC<Props> = props => {
+    const url = `../article/${props.title.toLocaleLowerCase().replaceAll(" ", "-")}_${props.id}`;
     
     return (
         <StyledArticle>
             <StyledTitle>{props.title}</StyledTitle>
             <StyledPreview>
-                {props.contentPreview}... <a href={`entry/${props.title.replaceAll(" ", "-")}_${props.id}`}>read more</a>
+                {props.contentPreview}... <StyledLink to={url}>read more</StyledLink>
             </StyledPreview>
         </StyledArticle>
     )

@@ -10,9 +10,9 @@ export const StyledMain = styled.main`
 `;
 
 export const StyledAbout = styled.div`
-    margin: 1rem auto 2rem;
+    margin: 1rem 0 2rem;
     max-width: 60rem;
-    text-align: center;
+    text-align: left;
 `;
 
 export const StyledTitle = styled.h2`

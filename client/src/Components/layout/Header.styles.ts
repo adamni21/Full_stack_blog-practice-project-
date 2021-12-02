@@ -18,6 +18,7 @@ export const StyledHeader = styled.header`
 export const StyledBlogTitle = styled.h1 `
     color: ${props => props.color || "#333"};
     margin: 0;
+    cursor: pointer;
 `;
 
 export const StyledNav = styled.nav`

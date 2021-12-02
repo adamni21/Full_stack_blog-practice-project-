@@ -28,7 +28,7 @@ const About: FC = () => {
 
   return (
     <StyledMain>
-      <StyledTitle>About us</StyledTitle>
+      <StyledTitle>Contact</StyledTitle>
       <StyledContent>{content}</StyledContent>
     </StyledMain>
   );
