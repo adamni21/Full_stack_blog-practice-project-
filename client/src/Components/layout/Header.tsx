@@ -17,7 +17,7 @@ const Header: FC<Props> = props => {
             <StyledNav>
                 <NavLink to="/home" className={navData => `${navData.isActive ? "isActive" : "notActive"}`}>HOME</NavLink>
                 <NavLink to="/about" className={navData => `${navData.isActive ? "isActive" : "notActive"}`}>ABOUT</NavLink>
-                <NavLink to="/404" className={navData => `${navData.isActive ? "isActive" : "notActive"} `}>CONTACTq</NavLink>
+                <NavLink to="/404" className={navData => `${navData.isActive ? "isActive" : "notActive"} `}>CONTACT</NavLink>
             </StyledNav>
         </StyledHeader>
     )
