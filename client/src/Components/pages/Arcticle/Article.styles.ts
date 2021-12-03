@@ -16,13 +16,13 @@ export const StyledArticle = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
-    font-size: 1.8rem;
+    font-size: 2rem;
+    margin: 0 0 .3rem;
     color: #233;
-    margin: 0 0 .5rem;
 `;
 
 export const StyledContent = styled.p`
-    color: #363636;
+    color: #445;
     margin: 0;
 `;
 

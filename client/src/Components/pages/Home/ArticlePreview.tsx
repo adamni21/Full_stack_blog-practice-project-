@@ -9,7 +9,7 @@ interface Props {
 };
 
 const ArticlePreview: FC<Props> = props => {
-    const url = `../article/${props.title.toLocaleLowerCase().replaceAll(" ", "-")}%${props.id}`;
+    const url = `../article/${props.id}/${props.title.toLocaleLowerCase().replaceAll(" ", "-")}`;
     
     return (
         <StyledArticle>

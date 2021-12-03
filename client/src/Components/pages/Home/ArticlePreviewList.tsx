@@ -20,7 +20,7 @@ const ArticleList: FC = props => {
     const { loading, error, data } = useQuery(ARTICLES_PREVIEW_QUERY);
 
     if(loading) return <p>Loading...</p>;
-    if(error) return <p>Error :(</p>;
+    if(error) return <p>Sorry, somthing went wrong.</p>;
     
     return (
         <StyledArticleList>

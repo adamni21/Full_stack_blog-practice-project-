@@ -28,7 +28,7 @@ function App() {
         <ApolloProvider client={client}>
           <Routes>
             <Route path="/home" element={ <Home/> }/>
-            <Route path="/article/*" element={ <Article/> }/>
+            <Route path="/article/:id/*" element={ <Article/> }/>
             <Route path="/about" element={ <About/> }/>
             <Route path="/contact" element={ <Contact/> }/>
             <Route path="/" element={ <Navigate to="/home"/> }/>
