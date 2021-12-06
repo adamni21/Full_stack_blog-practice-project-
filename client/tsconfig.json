@@ -10,7 +10,7 @@
       "dom",
       "esnext.asynciterable",
       "es2017",
-      "ES2021.String"
+      "ES2021.String",
     ],
     "sourceMap": true,
     "allowJs": true,

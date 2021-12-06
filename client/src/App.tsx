@@ -9,6 +9,7 @@ import About from './Components/pages/About/About';
 import Contact from './Components/pages/Contact/Contact';
 import PageNotFound from './Components/pages/404/PageNotFound';
 import Article from "./Components/pages/Arcticle/Article";
+import NewArticle from "./Components/pages/NewArticle/NewArticle";
 
 
 const client = new ApolloClient({
@@ -31,6 +32,7 @@ function App() {
             <Route path="/article/:id/*" element={ <Article/> }/>
             <Route path="/about" element={ <About/> }/>
             <Route path="/contact" element={ <Contact/> }/>
+            <Route path=".new_article" element={ <NewArticle/> }/>
             <Route path="/" element={ <Navigate to="/home"/> }/>
             <Route path="/*" element={ <PageNotFound/> }/>
           </Routes>
