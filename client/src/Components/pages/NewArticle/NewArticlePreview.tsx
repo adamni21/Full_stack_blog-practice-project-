@@ -9,7 +9,7 @@ interface Props {
     title: string,
     content: string,
     author_name: string,
-    onClick: () => void,
+    onClick?: () => void,
 }
 
 

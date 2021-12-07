@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, FormEvent, useReducer, useState } from "react";
 
+import { ACTIONS, MODAL_MODE, articleForm } from "./NewArticle.types";
 import {
   StyledButton,
   StyledInput,
@@ -7,17 +8,8 @@ import {
   StyledMain,
   StyledTextarea,
 } from "./NewArticle.styles";
+import ConfirmModal from "./ConfirmModal";
 import NewArticlePreview from "./NewArticlePreview";
-
-type articleForm = {
-  title: string;
-  content: string;
-  author_name: string;
-};
-
-type ACTIONS =
-  | { type: "UPDATE"; payload: { fieldName: string; value: string } }
-  | { type: "RESET"; };
 
 const reducer = (state: articleForm, action: ACTIONS) => {
   switch (action.type) {
@@ -32,13 +24,16 @@ const reducer = (state: articleForm, action: ACTIONS) => {
 };
 
 const initial: articleForm = { title: "", content: "", author_name: "" };
-
 const NewArticle: FC = () => {
+  // Form State
   const [state, dispatch] = useReducer(reducer, initial);
-  const [showPreview, setShowPreview] = useState(false);
-
-  // does'nt need accurate prevState
-  const togglePreviewHandler = () => setShowPreview(!showPreview);
+  const [modalMode, setModalMode] = useState<MODAL_MODE>();
+  // Toggles preview. (does'nt need accurate prevState)
+  const togglePreviewHandler = () => {
+    if (modalMode !== "PREVIEW") setModalMode("PREVIEW");
+    else setModalMode("NONE");
+  };
+  // Form inputs
   const changeHandler = ({
     target: { name, value },
   }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -47,17 +42,27 @@ const NewArticle: FC = () => {
       payload: { fieldName: name, value: value },
     });
   };
+  // Submit button
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
+    setModalMode("CONFIRM");
+  };
+  // Closes ConfirmModal
+  const abortHandler = () => setModalMode("NONE");
+  // Confirmes uploading article
+  const confirmHandler = () => {
     console.log(state);
     dispatch({ type: "RESET" });
   };
 
-  if (showPreview)
+  if (modalMode === "PREVIEW")
     return <NewArticlePreview onClick={togglePreviewHandler} {...state} />;
 
   return (
     <StyledMain>
+      {modalMode === "CONFIRM" && (
+        <ConfirmModal onConfirm={confirmHandler} onAbort={abortHandler} />
+      )}
       <form onSubmit={submitHandler}>
         <StyledLabel>Title:</StyledLabel>
         <StyledInput
