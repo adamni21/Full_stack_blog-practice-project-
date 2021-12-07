@@ -4,7 +4,7 @@ import { StyledHeader, StyledNav, StyledBlogTitle } from "./Header.styles";
 import { NavLink, useNavigate } from "react-router-dom";
 
 interface Props {
-    title?: string,
+    blogTitle?: string,
 };
 
 const Header: FC<Props> = props => {
@@ -13,7 +13,7 @@ const Header: FC<Props> = props => {
 
     return (
         <StyledHeader>
-            <StyledBlogTitle onClick={navigateHome}>{props.title || "My Blog"}</StyledBlogTitle>
+            <StyledBlogTitle onClick={navigateHome}>{props.blogTitle || "My Blog"}</StyledBlogTitle>
             <StyledNav>
                 <NavLink to="/home" className={navData => `${navData.isActive ? "isActive" : "notActive"}`}>HOME</NavLink>
                 <NavLink to="/about" className={navData => `${navData.isActive ? "isActive" : "notActive"}`}>ABOUT</NavLink>
