@@ -4,6 +4,7 @@ import { StyledCard } from "src/Components/UI/Card.styles";
 export const StyledModal = styled(StyledCard)`
     box-shadow: .1rem .3rem .5rem #0004;
     background-color: #fafafa;
+    padding: 1rem;
     z-index: 51;
     position: absolute;
     left: 50%;
@@ -27,7 +28,7 @@ export const StyledButton = styled.button`
     font-size: 1rem;
     font-weight: 600;
     margin: 1rem 0 0 .5rem;
-    padding: 1rem;
+    padding: .7rem;
     color: #233;
     background-color: #e0e0e0;
     

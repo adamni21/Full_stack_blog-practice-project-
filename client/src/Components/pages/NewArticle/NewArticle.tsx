@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, FormEvent, useReducer, useState } from "react";
 
-import { ACTIONS, MODAL_MODE, articleForm } from "./NewArticle.types";
+import { REDUCER_ACTIONS, article, PORTAL_STATE } from "./NewArticle.types";
 import {
   StyledButton,
   StyledInput,
@@ -8,10 +8,10 @@ import {
   StyledMain,
   StyledTextarea,
 } from "./NewArticle.styles";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "./ConfirmModal/ConfirmModal";
 import NewArticlePreview from "./NewArticlePreview";
 
-const reducer = (state: articleForm, action: ACTIONS) => {
+const reducer = (state: article, action: REDUCER_ACTIONS) => {
   switch (action.type) {
     case "UPDATE":
       const { fieldName, value } = action.payload;
@@ -23,17 +23,12 @@ const reducer = (state: articleForm, action: ACTIONS) => {
   }
 };
 
-const initial: articleForm = { title: "", content: "", author_name: "" };
+const initial: article = { title: "", content: "", author_name: "" };
+
 const NewArticle: FC = () => {
-  // Form State
+  // Form input fields state
   const [state, dispatch] = useReducer(reducer, initial);
-  const [modalMode, setModalMode] = useState<MODAL_MODE>();
-  // Toggles preview. (does'nt need accurate prevState)
-  const togglePreviewHandler = () => {
-    if (modalMode !== "PREVIEW") setModalMode("PREVIEW");
-    else setModalMode("NONE");
-  };
-  // Form inputs
+  // Form input fields changes
   const changeHandler = ({
     target: { name, value },
   }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -42,27 +37,24 @@ const NewArticle: FC = () => {
       payload: { fieldName: name, value: value },
     });
   };
-  // Submit button
+
+  // Responsible for opening/closing ArticlePreview and ConfirmModal
+  const [portalState, setPortalState] = useState<PORTAL_STATE>("CLOSED");
+  const closePortalHandler = () => setPortalState("CLOSED");
+  const openPreviewHandler = () => setPortalState("ARTICLE_PREVIEW");
+  const openConfirmModal = () => setPortalState("CONFIRM_UPLOAD");
+
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
-    setModalMode("CONFIRM");
-  };
-  // Closes ConfirmModal
-  const abortHandler = () => setModalMode("NONE");
-  // Confirmes uploading article
-  const confirmHandler = () => {
-    console.log(state);
-    dispatch({ type: "RESET" });
+    openConfirmModal();
   };
 
-  if (modalMode === "PREVIEW")
-    return <NewArticlePreview onClick={togglePreviewHandler} {...state} />;
+  if (portalState === "ARTICLE_PREVIEW")
+    return <NewArticlePreview onClosePreview={closePortalHandler} {...state} />;
 
   return (
     <StyledMain>
-      {modalMode === "CONFIRM" && (
-        <ConfirmModal onConfirm={confirmHandler} onAbort={abortHandler} />
-      )}
+      <ConfirmModal articleData={state} onCloseModal={closePortalHandler} showModal={portalState === "CONFIRM_UPLOAD"}/>
       <form onSubmit={submitHandler}>
         <StyledLabel>Title:</StyledLabel>
         <StyledInput
@@ -85,7 +77,7 @@ const NewArticle: FC = () => {
           onChange={changeHandler}
         />
         <StyledButton type="submit">Add Article</StyledButton>
-        <StyledButton onClick={togglePreviewHandler}>Show Preview</StyledButton>
+        <StyledButton onClick={openPreviewHandler}>Show Preview</StyledButton>
       </form>
     </StyledMain>
   );

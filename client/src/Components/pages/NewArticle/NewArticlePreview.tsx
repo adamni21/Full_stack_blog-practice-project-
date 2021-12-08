@@ -1,23 +1,20 @@
 import { FC } from "react";
 
 import { StyledArticle, StyledAuthor, StyledContent, StyledMain, StyledTitle } from "../Arcticle/Article.styles";
-import Portal from "src/Components/UI/Portal";
 import { StyledFooter } from "./NewArticlePreview.styles";
-
+import Portal from "src/Components/UI/Portal";
 
 interface Props {
     title: string,
     content: string,
     author_name: string,
-    onClick?: () => void,
+    onClosePreview?: () => void,
 }
 
-
-
-const NewArticlePreview: FC<Props> = ({ title, content, author_name, onClick }) => {
+const NewArticlePreview: FC<Props> = ({ title, content, author_name, onClosePreview }) => {
     
   return (
-        <Portal onClick={onClick}>
+        <Portal onClick={onClosePreview}>
             <StyledMain>
                 <StyledArticle>
                     <StyledTitle>{title}</StyledTitle>

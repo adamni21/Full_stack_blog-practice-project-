@@ -7,7 +7,7 @@ interface CardProps {
 
 export const StyledCard = styled.div <CardProps> `
     box-sizing: border-box;
-    border-radius: 2rem;
+    border-radius: 1rem;
     padding: 2rem;
     background-color: ${props => props.backgroundColor || "#ddd"};
 `;
