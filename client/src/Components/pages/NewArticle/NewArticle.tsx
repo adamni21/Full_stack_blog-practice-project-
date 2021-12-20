@@ -37,6 +37,8 @@ const NewArticle: FC = () => {
       payload: { fieldName: name, value: value },
     });
   };
+  // Form input fields reset
+  const formResetHandler = () => dispatch({ type: "RESET" });
 
   // Responsible for opening/closing ArticlePreview and ConfirmModal
   const [portalState, setPortalState] = useState<PORTAL_STATE>("CLOSED");
@@ -54,7 +56,6 @@ const NewArticle: FC = () => {
 
   return (
     <StyledMain>
-      <ConfirmModal articleData={state} onCloseModal={closePortalHandler} showModal={portalState === "CONFIRM_UPLOAD"}/>
       <form onSubmit={submitHandler}>
         <StyledLabel>Title:</StyledLabel>
         <StyledInput
@@ -79,6 +80,13 @@ const NewArticle: FC = () => {
         <StyledButton type="submit">Add Article</StyledButton>
         <StyledButton onClick={openPreviewHandler}>Show Preview</StyledButton>
       </form>
+      {portalState === "CONFIRM_UPLOAD" && (
+        <ConfirmModal
+          articleData={state}
+          onCloseModal={closePortalHandler}
+          onSuccess={formResetHandler}
+        />
+      )}
     </StyledMain>
   );
 };

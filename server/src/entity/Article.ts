@@ -23,7 +23,7 @@ export class Article extends BaseEntity {
         let preview = this.content.slice(0, 100);
         
         //cuts last character if it's a dash 
-        if (preview.slice(-1) === " ") preview = preview.slice(-1)
+        if (preview.slice(-1) === " ") preview = preview.slice(0, -1)
         //cuts last character if it's a dot (no else if! to cut both: ". " and ".")
         if (preview.slice(-1) === ".") preview = preview.slice(0, -1)
         
