@@ -1,5 +1,5 @@
 import { ApolloError } from "apollo-server-errors";
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
 
 import { Author } from "../entity/Author";
 
@@ -31,7 +31,7 @@ export class AuthorResolver {
     const author = await Author.create({
       first_name,
       last_name,
-      date_of_birth
+      date_of_birth_col: date_of_birth.toISOString().split('T')[0]
     }).save();
 
     return author;

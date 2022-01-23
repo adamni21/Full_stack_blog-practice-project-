@@ -16,16 +16,21 @@ export class Author extends BaseEntity {
   readonly id: number;
 
   @Field()
-  @Column({ nullable: true })
+  @Column()
   first_name: string;
   
   @Field()
-  @Column({ nullable: true })
+  @Column()
   last_name: string;
   
-  @Field()
-  @Column({ nullable: true, type: "date" })
-  date_of_birth: Date;
+  @Field(type => Date)
+ date_of_birth(): Date {
+   return new Date(this.date_of_birth_col)
+ }
+
+
+  @Column({type: "date" })
+  date_of_birth_col: Date;
 
   
 
