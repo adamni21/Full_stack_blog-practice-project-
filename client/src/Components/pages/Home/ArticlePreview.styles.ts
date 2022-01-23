@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export const StyledTitle = styled.h2`
     text-align: left;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: #233;
     margin: 0;
 `;
