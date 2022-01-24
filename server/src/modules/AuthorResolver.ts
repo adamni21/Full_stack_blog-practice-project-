@@ -1,5 +1,5 @@
 import { ApolloError } from "apollo-server-errors";
-import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, ID, Mutation, Query, Resolver } from "type-graphql";
 
 import { Author } from "../entity/Author";
 
@@ -11,13 +11,13 @@ export class AuthorResolver {
   }
 
   @Query((type) => Author)
-  async author(@Arg("authorId") authorId: number): Promise<Author | Error> {
-    const author = await Author.findOne(authorId, { relations: ["articles"] });
+  async author(@Arg("author_id", type => ID)id: number): Promise<Author | Error> {
+    const author = await Author.findOne(id, { relations: ["articles"] });
 
     if (author) return author;
     else
       return new ApolloError(
-        `Author with id: "${authorId}" does not exist`,
+        `Author with id: "${id}" does not exist`,
         "404"
       );
   }
