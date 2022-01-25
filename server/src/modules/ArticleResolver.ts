@@ -22,12 +22,13 @@ export class ArticleResolver {
 
   @Query((type) => [Article])
   async articles(
-    @Arg("pagination") { skip, take }: PaginationInput
+    @Arg("pagination", { nullable: true }) pagination: PaginationInput
   ): Promise<Article[]> {
+    const { take, skip } = pagination || {}
     if (!take)
       return await Article.find({
         relations: ["author"],
-        skip: skip,
+        skip: skip || 0,
       });
 
     return await Article.find({
