@@ -7,11 +7,11 @@ import Portal from "src/Components/UI/Portal";
 interface Props {
     title: string,
     content: string,
-    author_name: string,
+    authorName: string,
     onClosePreview?: () => void,
 }
 
-const NewArticlePreview: FC<Props> = ({ title, content, author_name, onClosePreview }) => {
+const NewArticlePreview: FC<Props> = ({ title, content, authorName, onClosePreview }) => {
     
   return (
         <Portal onClick={onClosePreview}>
@@ -19,7 +19,7 @@ const NewArticlePreview: FC<Props> = ({ title, content, author_name, onClosePrev
                 <StyledArticle>
                     <StyledTitle>{title}</StyledTitle>
                     <StyledContent>{content}</StyledContent>
-                    <StyledAuthor>written by {author_name}</StyledAuthor>
+                    <StyledAuthor>written by {authorName}</StyledAuthor>
                 </StyledArticle>
             </StyledMain>
             <StyledFooter>Click anywhere to go end the preview</StyledFooter>

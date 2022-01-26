@@ -8,6 +8,7 @@ import ConfirmFrame from "./ConfirmFrame";
 import ErrorFrame from "./ErrorFrame";
 import SuccessFrame from "./SuccessFrame";
 import LoadingFrame from "./LoadingFrame";
+import { AddArticle, AddArticleVariables } from "src/operation-result-types";
 
 interface Props {
   articleData: article;
@@ -19,36 +20,33 @@ interface Props {
 type Frame = "SUCCESS" | "LOADING" | "CONFIRM" | "ERROR";
 
 const POST_ARTICLE = gql`
-  mutation AddArticle(
-    $author_name: String!
-    $content: String!
-    $title: String!
-  ) {
-    addArticle(author_name: $author_name, content: $content, title: $title) {
+  mutation AddArticle($authorId: ID!, $content: String!, $title: String!) {
+    addArticle(author_id: $authorId, content: $content, title: $title) {
       id
       title
-      author_name
+      author {
+        first_name
+        last_name
+      }
     }
   }
 `;
 
-
 const ConfirmModal: FC<Props> = ({ articleData, onCloseModal, onSuccess }) => {
   const frame = useRef<Frame>("CONFIRM");
 
-  const [addArticle, { loading, error, data }] = useMutation(POST_ARTICLE);
+  const [addArticle, { loading, error, data }] = useMutation<AddArticle, AddArticleVariables>(POST_ARTICLE);
   if (loading) frame.current = "LOADING";
   if (error) frame.current = "ERROR";
   if (data) {
     frame.current = "SUCCESS";
-    onSuccess()
+    onSuccess();
   }
 
   const mutationHandler = () => {
     addArticle({ variables: articleData }).catch((e) => {
       return null;
     });
-
   };
 
   return (
@@ -62,7 +60,7 @@ const ConfirmModal: FC<Props> = ({ articleData, onCloseModal, onSuccess }) => {
         )}
         {frame.current === "LOADING" && <LoadingFrame />}
         {frame.current === "SUCCESS" && (
-          <SuccessFrame previewData={data.addArticle} onClose={onCloseModal} />
+          <SuccessFrame previewData={data!.addArticle} onClose={onCloseModal} />
         )}
         {frame.current === "ERROR" && (
           <ErrorFrame
