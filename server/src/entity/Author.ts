@@ -11,30 +11,23 @@ import { Article } from "./Article";
 @Entity()
 @ObjectType()
 export class Author extends BaseEntity {
-  @Field(type => ID)
+  @Field((type) => ID)
   @PrimaryGeneratedColumn()
   readonly id: number;
 
   @Field()
   @Column()
   first_name: string;
-  
+
   @Field()
   @Column()
   last_name: string;
-  
-  @Field(type => Date)
- date_of_birth(): Date {
-   return new Date(this.date_of_birth_col)
- }
 
+  @Field()
+  @Column({ type: "date" })
+  date_of_birth: string
 
-  @Column({type: "date" })
-  date_of_birth_col: Date;
-
-  
-
-  @Field(type => [Article])
-  @OneToMany(() => Article, article => article.author)
+  @Field((type) => [Article])
+  @OneToMany(() => Article, (article) => article.author)
   articles?: Article[];
 }

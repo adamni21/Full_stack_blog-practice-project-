@@ -6,6 +6,8 @@ import {
   BaseEntity,
   ManyToOne,
   RelationId,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { Author } from "./Author";
 
@@ -24,6 +26,14 @@ export class Article extends BaseEntity {
   @Column()
   content: string;
 
+  @Field()
+  @CreateDateColumn({nullable: true})
+  createdAt: Date
+
+  @Field()
+  @UpdateDateColumn({nullable: true})
+  updatedAt: Date
+  
   @Field((type) => Author)
   @ManyToOne((type) => Author, (author) => author.articles, { nullable: false })
   author: Author;

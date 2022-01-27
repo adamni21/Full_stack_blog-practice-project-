@@ -31,7 +31,7 @@ export class AuthorResolver {
     const author = await Author.create({
       first_name,
       last_name,
-      date_of_birth_col: date_of_birth.toISOString().split('T')[0]
+      date_of_birth: date_of_birth.toISOString().split('T')[0]
     }).save();
 
     return author;
