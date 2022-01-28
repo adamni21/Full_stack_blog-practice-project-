@@ -1,5 +1,5 @@
 import { ApolloError } from "apollo-server-errors";
-import { Arg, ID, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Args, ID, Mutation, Query, Resolver } from "type-graphql";
 
 import { Article } from "../entity/Article";
 import { Author } from "../entity/Author";
@@ -22,9 +22,8 @@ export class ArticleResolver {
 
   @Query((type) => [Article])
   async articles(
-    @Arg("pagination", { nullable: true }) pagination: PaginationInput
+    @Args() {skip, take}: PaginationInput
   ): Promise<Article[]> {
-    const { take, skip } = pagination || {}
     if (!take)
       return await Article.find({
         relations: ["author"],

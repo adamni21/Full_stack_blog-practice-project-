@@ -1,7 +1,8 @@
 import { ApolloError } from "apollo-server-errors";
-import { Arg, ID, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Args, ID, Mutation, Query, Resolver } from "type-graphql";
 
 import { Author } from "../entity/Author";
+import { AddAuthorInput } from "./types/author-inputs";
 
 @Resolver(Author)
 export class AuthorResolver {
@@ -24,9 +25,7 @@ export class AuthorResolver {
 
   @Mutation((type) => Author)
   async addAuthor(
-    @Arg("first_name") first_name: string,
-    @Arg("last_name") last_name: string,
-    @Arg("date_of_birth") date_of_birth: Date,
+    @Args() {first_name, last_name, date_of_birth}: AddAuthorInput
   ): Promise<Author> {
     const author = await Author.create({
       first_name,
@@ -36,4 +35,6 @@ export class AuthorResolver {
 
     return author;
   }
+
+  
 }

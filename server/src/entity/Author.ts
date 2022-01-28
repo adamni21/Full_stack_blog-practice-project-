@@ -25,7 +25,7 @@ export class Author extends BaseEntity {
 
   @Field()
   @Column({ type: "date" })
-  date_of_birth: string
+  date_of_birth: string| Date
 
   @Field((type) => [Article])
   @OneToMany(() => Article, (article) => article.author)
