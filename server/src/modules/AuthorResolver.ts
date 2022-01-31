@@ -27,12 +27,12 @@ export class AuthorResolver {
   async addAuthor(
     @Args() { first_name, last_name, date_of_birth }: AddAuthorInput
   ): Promise<Author> {
-    date_of_birth = DateUtils.mixedDateToDateString(new Date(date_of_birth));
     const author = await Author.create({
       first_name,
       last_name,
       date_of_birth,
     }).save();
+    date_of_birth = DateUtils.mixedDateToDateString(new Date(date_of_birth));
     return author;
   }
 
