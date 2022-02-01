@@ -1,9 +1,10 @@
 import { ApolloError, UserInputError } from "apollo-server-errors";
-import { DateUtils } from "typeorm/util/DateUtils";
 import { Arg, Args, ID, Mutation, Query, Resolver } from "type-graphql";
+import {} from "graphql"
 
 import { Author } from "../entity/Author";
 import { AddAuthorInput, UpdateAuthorInput } from "./types/author-inputs";
+
 
 @Resolver(Author)
 export class AuthorResolver {
@@ -13,9 +14,7 @@ export class AuthorResolver {
   }
 
   @Query((type) => Author)
-  async author(
-    @Arg("author_id", (type) => ID) id: number
-  ): Promise<Author | Error> {
+  async author(@Arg("id", (type) => ID) id: number): Promise<Author | Error> {
     const author = await Author.findOne(id, { relations: ["articles"] });
 
     if (author) return author;
@@ -32,7 +31,6 @@ export class AuthorResolver {
       last_name,
       date_of_birth,
     }).save();
-    date_of_birth = DateUtils.mixedDateToDateString(new Date(date_of_birth));
     return author;
   }
 
@@ -52,5 +50,17 @@ export class AuthorResolver {
       return new UserInputError(`Author with id: ${id} does'nt exist`);
 
     return updatedAuthor;
+  }
+
+  @Mutation((type) => String)
+  async deleteAuthor(
+    @Arg("id", (type) => ID) id: number
+  ): Promise <string | UserInputError | void> {
+    const exists = await Author.findOne(id);
+    if (!exists)
+      return new UserInputError(`Author with id: ${id} does'nt exist`);
+    await Author.delete(id);
+    if (!(await Author.findOne(id)))
+      return `Author with id: ${id} successfully deleted`;
   }
 }

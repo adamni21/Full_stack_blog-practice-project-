@@ -23,7 +23,7 @@ export class Author extends BaseEntity {
   @Column()
   last_name: string;
 
-  @Field((type) => String)
+  @Field()
   @Column({ type: "date" })
   date_of_birth: string;
 
