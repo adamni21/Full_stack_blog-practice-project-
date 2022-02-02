@@ -1,9 +1,13 @@
-import { ApolloError, UserInputError } from "apollo-server-errors";
+import { UserInputError } from "apollo-server-errors";
 import { Arg, Args, ID, Mutation, Query, Resolver } from "type-graphql";
 
 import { Article } from "../entity/Article";
 import { Author } from "../entity/Author";
-import { AddArticleInput } from "./types/article-inputs";
+import {
+  AddArticleInput,
+  ArticleUpdatedAttributes,
+  UpdateArticleInput,
+} from "./types/article-inputs";
 import PaginationInput from "./types/pagination-input";
 
 @Resolver((type) => Article)
@@ -17,8 +21,7 @@ export class ArticleResolver {
     });
 
     if (article) return article;
-    else
-      return new ApolloError(`Article with id: "${id}" does not exist`, "404");
+    else return new UserInputError(`Article with id: "${id}" does not exist`);
   }
 
   @Query((type) => [Article])
@@ -52,5 +55,28 @@ export class ArticleResolver {
     }).save();
 
     return article;
+  }
+
+  @Mutation((type) => Article)
+  async updateArticle(
+    @Args()
+    { id, updatedAttributes }: UpdateArticleInput
+  ): Promise<Article | UserInputError> {
+    const article = await Article.findOne(id);
+    if (!article)
+      return new UserInputError(`Article with id: ${id} does'nt exist`);
+
+    const { authorId } = updatedAttributes;
+    if (!(await Author.findOne(authorId))) {
+      const errorMessage = `Value of "updatedAttributes.authorID" is invalid. Author with id: ${authorId} does'nt exist`;
+      return new UserInputError(errorMessage);
+    }
+
+    await Article.update(id, updatedAttributes);
+    const updatedArticle = await Article.findOne(id, {
+      relations: ["author"],
+    });
+
+    return updatedArticle!;
   }
 }

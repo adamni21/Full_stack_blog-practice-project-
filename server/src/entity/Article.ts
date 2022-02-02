@@ -1,4 +1,4 @@
-import { Field, ID, Int, ObjectType } from "type-graphql";
+import { Field, ID, ObjectType } from "type-graphql";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -37,6 +37,8 @@ export class Article extends BaseEntity {
   @Field((type) => Author)
   @ManyToOne((type) => Author, (author) => author.articles, { nullable: false })
   author: Author;
+
+  @Column()
   @RelationId((article: Article) => article.author)
   authorId: number;
 
