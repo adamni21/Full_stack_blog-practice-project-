@@ -1,4 +1,4 @@
-import { ApolloError, UserInputError } from "apollo-server-errors";
+import { UserInputError } from "apollo-server-errors";
 import { Arg, Args, ID, Mutation, Query, Resolver } from "type-graphql";
 import {} from "graphql"
 
@@ -19,7 +19,7 @@ export class AuthorResolver {
 
     if (author) return author;
     else
-      return new ApolloError(`Author with id: "${id}" does not exist`, "404");
+      return new UserInputError(`Author with id: "${id}" does not exist`);
   }
 
   @Mutation((type) => Author)
