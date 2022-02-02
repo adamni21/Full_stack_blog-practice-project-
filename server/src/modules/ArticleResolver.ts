@@ -1,4 +1,4 @@
-import { ApolloError } from "apollo-server-errors";
+import { ApolloError, UserInputError } from "apollo-server-errors";
 import { Arg, Args, ID, Mutation, Query, Resolver } from "type-graphql";
 
 import { Article } from "../entity/Article";
@@ -39,10 +39,12 @@ export class ArticleResolver {
   @Mutation((type) => Article)
   async addArticle(
     @Args() { title, content, author_id }: AddArticleInput
-  ): Promise<Article> {
+  ): Promise<Article | UserInputError> {
     const author = await Author.findOne({
       id: author_id,
     });
+    if (!author)
+      return new UserInputError(`Author with id: ${author_id} does'nt exist`);
     const article = await Article.create({
       title,
       content,
