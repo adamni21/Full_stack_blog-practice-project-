@@ -3,6 +3,7 @@ import { Arg, Args, ID, Mutation, Query, Resolver } from "type-graphql";
 
 import { Article } from "../entity/Article";
 import { Author } from "../entity/Author";
+import { AddArticleInput } from "./types/article-inputs";
 import PaginationInput from "./types/pagination-input";
 
 @Resolver((type) => Article)
@@ -21,9 +22,7 @@ export class ArticleResolver {
   }
 
   @Query((type) => [Article])
-  async articles(
-    @Args() {skip, take}: PaginationInput
-  ): Promise<Article[]> {
+  async articles(@Args() { skip, take }: PaginationInput): Promise<Article[]> {
     if (!take)
       return await Article.find({
         relations: ["author"],
@@ -39,9 +38,7 @@ export class ArticleResolver {
 
   @Mutation((type) => Article)
   async addArticle(
-    @Arg("title") title: string,
-    @Arg("content") content: string,
-    @Arg("author_id", (type) => ID) author_id: number
+    @Args() { title, content, author_id }: AddArticleInput
   ): Promise<Article> {
     const author = await Author.findOne({
       id: author_id,
