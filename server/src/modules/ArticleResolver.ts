@@ -5,10 +5,10 @@ import { Article } from "../entity/Article";
 import { Author } from "../entity/Author";
 import {
   AddArticleInput,
-  ArticleUpdatedAttributes,
   UpdateArticleInput,
 } from "./types/article-inputs";
 import PaginationInput from "./types/pagination-input";
+import { DeleteArticleResponse } from "./types/response-types";
 
 @Resolver((type) => Article)
 export class ArticleResolver {
@@ -78,5 +78,16 @@ export class ArticleResolver {
     });
 
     return updatedArticle!;
+  }
+
+  @Mutation((type) => DeleteArticleResponse)
+  async deleteArticle(
+    @Arg("id", (type) => ID) id: number
+  ): Promise <DeleteArticleResponse | UserInputError> {
+    const article = await Article.findOne(id, {relations:["author"]});
+    if (!article)
+      return new UserInputError(`Article with id: ${id} does'nt exist`);
+    const result = await (await Article.delete(id)).affected === 1;
+    return {deletedArticle: article, deleted: result};
   }
 }
