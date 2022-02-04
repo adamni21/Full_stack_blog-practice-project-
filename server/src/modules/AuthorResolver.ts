@@ -4,6 +4,7 @@ import {} from "graphql"
 
 import { Author } from "../entity/Author";
 import { AddAuthorInput, UpdateAuthorInput } from "./types/author-inputs";
+import { DeleteAuthorResponse } from "./types/response-types";
 
 
 @Resolver(Author)
@@ -38,29 +39,25 @@ export class AuthorResolver {
   async updateAuthor(
     @Args() { id, attributesToUpdate }: UpdateAuthorInput
   ): Promise<Author | UserInputError> {
-    (
-      Object.keys(attributesToUpdate) as Array<keyof typeof attributesToUpdate>
-    ).map((key) => {
-      if (attributesToUpdate[key] === undefined) delete attributesToUpdate[key];
-    });
-
     await Author.update(id, { ...attributesToUpdate });
+
     const updatedAuthor = await Author.findOne(id);
+    
     if (!updatedAuthor)
       return new UserInputError(`Author with id: ${id} does'nt exist`);
 
     return updatedAuthor;
   }
 
-  @Mutation((type) => String)
+  @Mutation((type) => DeleteAuthorResponse)
   async deleteAuthor(
     @Arg("id", (type) => ID) id: number
-  ): Promise <string | UserInputError | void> {
-    const exists = await Author.findOne(id);
-    if (!exists)
+  ): Promise <DeleteAuthorResponse | UserInputError> {
+    const author = await Author.findOne(id);
+    if (!author)
       return new UserInputError(`Author with id: ${id} does'nt exist`);
-    await Author.delete(id);
-    if (!(await Author.findOne(id)))
-      return `Author with id: ${id} successfully deleted`;
+    const result = await (await Author.delete(id)).affected === 1;
+    
+    return {deletedItem: author, isDeleted: result}
   }
 }

@@ -1,11 +1,21 @@
 import { Article } from "../../entity/Article";
-import { Field, ObjectType } from "type-graphql";
+import { Author } from "../../entity/Author";
+import { ClassType, Field, ObjectType } from "type-graphql";
+
+function DeleteResponse<TItem>(TItemClass: ClassType<TItem>) {
+  @ObjectType({ isAbstract: true })
+  abstract class DeleteResponseClass {
+    @Field((type) => TItemClass)
+    deletedItem: TItem;
+
+    @Field()
+    isDeleted: boolean;
+  }
+  return DeleteResponseClass;
+}
 
 @ObjectType()
-export class DeleteArticleResponse {
-  @Field(type => Article)
-  deletedArticle: Article
+export class DeleteArticleResponse extends DeleteResponse(Article) {}
 
-  @Field()
-  deleted: boolean
-}
+@ObjectType()
+export class DeleteAuthorResponse extends DeleteResponse(Author) {}

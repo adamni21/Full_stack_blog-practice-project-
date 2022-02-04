@@ -3,12 +3,13 @@ import { Arg, Args, ID, Mutation, Query, Resolver } from "type-graphql";
 
 import { Article } from "../entity/Article";
 import { Author } from "../entity/Author";
+
+import PaginationInput from "./types/pagination-input";
+import { DeleteArticleResponse } from "./types/response-types";
 import {
   AddArticleInput,
   UpdateArticleInput,
 } from "./types/article-inputs";
-import PaginationInput from "./types/pagination-input";
-import { DeleteArticleResponse } from "./types/response-types";
 
 @Resolver((type) => Article)
 export class ArticleResolver {
@@ -19,7 +20,6 @@ export class ArticleResolver {
     const article = await Article.findOne(id, {
       relations: ["author"],
     });
-
     if (article) return article;
     else return new UserInputError(`Article with id: "${id}" does not exist`);
   }
@@ -87,7 +87,8 @@ export class ArticleResolver {
     const article = await Article.findOne(id, {relations:["author"]});
     if (!article)
       return new UserInputError(`Article with id: ${id} does'nt exist`);
+
     const result = await (await Article.delete(id)).affected === 1;
-    return {deletedArticle: article, deleted: result};
+    return {deletedItem: article, isDeleted: result};
   }
 }
