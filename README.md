@@ -24,3 +24,9 @@ In order of planned implementation:
 - Article Filtering
 
 - Administration Permition/Clearance
+
+## Stack
+
+`Typescript` `React` `StyledComponents`[*][1] `Apollo Client`[*][1] `Apollo Server Express` `TypeGraphQL` `TypeOrm`
+
+[1]: StyledComponents will be replaced with css modules and Apollo Client likely with urql.
